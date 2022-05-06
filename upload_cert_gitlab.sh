@@ -44,4 +44,5 @@ do
     else
         run=false
         continue
-
+    fi
+done
