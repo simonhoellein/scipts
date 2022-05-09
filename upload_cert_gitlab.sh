@@ -41,7 +41,7 @@ done
 
 # upload to git
 
-mv /tmp/cert-script/live /root/cert
+mv /tmp/cert-script/live/ /root/cert
 rm $DIR_NUM
 
 cd /root/cert
