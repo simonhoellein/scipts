@@ -31,10 +31,7 @@ do
         exp_date=$(openssl x509 -in $WD/npm-$i/cert.pem -noout -text | grep "Not After :" | cut -d ":" -f 2- | cut -c 2-)
         echo "# Information about $cn" > $WD/npm-$i/README.md
         echo "--------" >> $WD/npm-$i/README.md
-        echo "*expiration at $exp_date*" >> $WD/npm-$i/README.md
-        echo "```" >> $WD/npm-$i/README.md
         openssl x509 -in $WD/npm-$i/cert.pem -noout -text >> $WD/npm-$i/README.md
-        echo "```" >> $WD/npm-$i/README.md
         mv $WD/npm-$i $WD/$cn
         i=$((i+1))
     else
