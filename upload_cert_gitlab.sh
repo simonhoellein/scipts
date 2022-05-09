@@ -41,9 +41,11 @@ done
 
 # upload to git
 
-mv /tmp/cert-script/live/ /root/cert
+cp /tmp/cert-script/live/* /root/cert
+rm -r /tmp/cert-script/live
 rm $DIR_NUM
 
 cd /root/cert
-git commit -a -m certificate update
-git push
+git add /root/cert/*
+git commit -m certificate update
+git push origin master
