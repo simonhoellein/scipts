@@ -28,10 +28,13 @@ do
     if grep -q -x -F "$i" "$DIR_NUM"
     then
         cn=$(openssl x509 -in $WD/npm-$i/cert.pem -noout -text | grep "Subject: CN = " | cut -d "=" -f 2 | cut -c 2-)
-        date=$(openssl x509 -in $WD/npm-$i/cert.pem -noout -text | grep "Not After :" | cut -d ":" -f 2- | cut -c 2-)
+        exp_date=$(openssl x509 -in $WD/npm-$i/cert.pem -noout -text | grep "Not After :" | cut -d ":" -f 2- | cut -c 2-)
         echo "# Information about $cn" > $WD/npm-$i/README.md
         echo "--------" >> $WD/npm-$i/README.md
+        echo "*expiration at $exp_date*" >> $WD/npm-$i/README.md
+        echo "```" >> $WD/npm-$i/README.md
         openssl x509 -in $WD/npm-$i/cert.pem -noout -text >> $WD/npm-$i/README.md
+        echo "```" >> $WD/npm-$i/README.md
         mv $WD/npm-$i $WD/$cn
         i=$((i+1))
     else
@@ -44,3 +47,7 @@ done
 mv /tmp/cert-script/live /root/certificates
 rm $DIR_NUM
 
+cd /root/cert
+git remote set-url origin http://proxy-dmz:wnAwQgLvY4Gwywe8@gitlab.shoellein.de/shoellein/cert.git
+git commit -m certificate update
+git push
