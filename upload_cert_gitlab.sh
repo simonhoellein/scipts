@@ -27,9 +27,9 @@ ls $WD | cut -c 5- > /tmp/cert-script/dir_num
 
 # Start variable
 i=1
-run=true
+e=$(cat $DIR_NUM | wc -l)
 
-while [ $run -eq true ]
+while [ $i -le $e ]
 do
     if grep -q -x -F "$i" "$DIR_NUM"
     then
@@ -39,10 +39,10 @@ do
         echo "--------" >> $WD/npm-$i/README.md
         openssl x509 -in $WD/npm-$i/cert.pem -noout -text >> $WD/npm-$i/README.md
         mv $WD/npm-$i $WD/$cn
-        i=i+1
-        run=true
+        i=$i+1
     else
-        run=false
-        continue
+        i=$i+1
     fi
 done
+
+# upload to git
