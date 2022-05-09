@@ -40,3 +40,7 @@ do
 done
 
 # upload to git
+
+mv /tmp/cert-script/live /root/certificates
+rm $DIR_NUM
+
