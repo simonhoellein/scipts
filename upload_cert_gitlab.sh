@@ -10,9 +10,28 @@
 WD=/tmp/cert-script/live
 DIR_NUM=/tmp/cert-script/dir_num
 
+echo "_________                __  .__  _____.__               __                 "
+echo "\_   ___ \  ____________/  |_|__|/ ____\__| ____ _____ _/  |_  ____   ______"
+echo "/    \  \/_/ __ \_  __ \   __\  \   __\|  |/ ___\\__  \\   __\/ __ \ /  ___/"
+echo "\     \___\  ___/|  | \/|  | |  ||  |  |  \  \___ / __ \|  | \  ___/ \___ \ "
+echo " \______  /\___  >__|   |__| |__||__|  |__|\___  >____  /__|  \___  >____  >"
+echo "        \/     \/                              \/     \/          \/     \/ "
+echo ""
+echo "# Script by sh"
+echo ""
+echo "# Explenation: This Script is ment to upload Certificates from NGINX Proxy Manager to a Gitlab Repository"
+echo ""
+echo "Working Directory: $WD"
+echo "Directory-Numvers: $DIR_NUM"
+echo ""
+sleep 2
 # Copy Certfiles to Work-Directory and rm all README files
+echo "# Copying files to Working Directory:"
+sleep 2
 mkdir -p $WD
-cp -Lr /opt/proxy/letsencrypt/live /tmp/cert-script/
+cp -Lrv /opt/proxy/letsencrypt/live /tmp/cert-script/
+echo "# Delete all README Files"
+sleep 1
 find /tmp/cert-script/live -type f -name 'README' -delete
 
 # Get numberts from npm-folders
