@@ -48,4 +48,4 @@ rm $DIR_NUM
 cd /root/cert
 git add *
 git commit -m "certificate update"
-git push origin master
+git push
