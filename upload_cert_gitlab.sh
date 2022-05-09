@@ -41,10 +41,9 @@ done
 
 # upload to git
 
-mv /tmp/cert-script/live /root/certificates
+mv /tmp/cert-script/live /root/cert
 rm $DIR_NUM
 
 cd /root/cert
-git remote set-url origin http://proxy-dmz:wnAwQgLvY4Gwywe8@gitlab.shoellein.de/shoellein/cert.git
 git commit -m certificate update
 git push
