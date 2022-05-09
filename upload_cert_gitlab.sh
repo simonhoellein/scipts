@@ -10,17 +10,10 @@
 WD=/tmp/cert-script/live
 DIR_NUM=/tmp/cert-script/dir_num
 
-# check if user is root
-if [$USER -ne root]
-then
-    echo "This script mused be run as root. You are logged in as $USER"
-    exit
-
 # Copy Certfiles to Work-Directory and rm all README files
 mkdir -p $WD
-cp -Lr /opt/proxy/letsencrypt/live $WD
-rm $WD/README
-rm $WD/*/README
+cp -Lr /opt/proxy/letsencrypt/live /tmp/cert-script/
+find /tmp/cert-script/live -type f -name 'README' -delete
 
 # Get numberts from npm-folders
 ls $WD | cut -c 5- > /tmp/cert-script/dir_num
@@ -28,6 +21,7 @@ ls $WD | cut -c 5- > /tmp/cert-script/dir_num
 # Start variable
 i=1
 e=$(cat $DIR_NUM | wc -l)
+e=$((e+1))
 
 while [ $i -le $e ]
 do
@@ -39,9 +33,9 @@ do
         echo "--------" >> $WD/npm-$i/README.md
         openssl x509 -in $WD/npm-$i/cert.pem -noout -text >> $WD/npm-$i/README.md
         mv $WD/npm-$i $WD/$cn
-        i=$i+1
+        i=$((i+1))
     else
-        i=$i+1
+        i=$((i+1))
     fi
 done
 
