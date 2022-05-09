@@ -46,6 +46,6 @@ rm -r /tmp/cert-script/live
 rm $DIR_NUM
 
 cd /root/cert
-git add /root/cert/*
-git commit -m certificate update
+git add *
+git commit -m "certificate update"
 git push origin master
