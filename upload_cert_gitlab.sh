@@ -45,5 +45,5 @@ mv /tmp/cert-script/live/ /root/cert
 rm $DIR_NUM
 
 cd /root/cert
-git commit -m certificate update
+git commit -a -m certificate update
 git push
