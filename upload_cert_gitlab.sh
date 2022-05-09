@@ -65,6 +65,7 @@ rm -r /tmp/cert-script/live
 rm $DIR_NUM
 
 cd /root/cert
+git pull
 git add *
 git commit -m "certificate update"
 git push
