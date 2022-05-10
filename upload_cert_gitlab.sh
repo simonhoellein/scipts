@@ -26,11 +26,13 @@ echo "Directory-Numvers: $DIR_NUM"
 echo ""
 sleep 2
 # Copy Certfiles to Work-Directory and rm all README files
+echo ""
 echo "# Copying files to Working Directory:"
 echo ""
 sleep 2
 mkdir -p $WD
 cp -Lrv /opt/proxy/letsencrypt/live /tmp/cert-script/
+echo ""
 echo "# Delete all README Files"
 echo ""
 sleep 1
@@ -38,7 +40,6 @@ find /tmp/cert-script/live -type f -name 'README' -delete
 
 # Get numberts from npm-folders
 ls $WD | cut -c 5- > /tmp/cert-script/dir_num
-cat /tmp/cert-script/dir_num
 
 # Start variable
 i=1
@@ -74,6 +75,7 @@ cp -rv /tmp/cert-script/live/* /root/cert
 rm -rv /tmp/cert-script/live
 rm $DIR_NUM
 
+echo ""
 echo "push to Gitlab"
 echo ""
 cd /root/cert
