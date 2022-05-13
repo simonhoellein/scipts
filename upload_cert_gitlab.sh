@@ -43,7 +43,7 @@ echo "# Delete all README Files"
 echo "###############################################################################"
 echo ""
 sleep 1
-find /tmp/cert-script/live -type f -name 'README' -delete
+find /tmp/cert-script/live -type f -name 'README' -delete -print
 
 # Get numberts from npm-folders
 ls $WD | cut -c 5- > /tmp/cert-script/dir_num
