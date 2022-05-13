@@ -10,6 +10,7 @@
 WD=/tmp/cert-script/live
 DIR_NUM=/tmp/cert-script/dir_num
 
+# Intro-Text
 echo "_________                __  .__  _____.__               __                 "
 echo "\_   ___ \  ____________/  |_|__|/ ____\__| ____ _____ _/  |_  ____   ______"
 echo "/    \  \/_/ __ \_  __ \   __\  \   __\|  |/ ___\\__  \\   __\/ __ \ /  ___/"
@@ -26,14 +27,18 @@ echo "Directory-Numvers: $DIR_NUM"
 echo ""
 sleep 2
 # Copy Certfiles to Work-Directory and rm all README files
-echo ""
+echo "###############################################################################"
 echo "# Copying files to Working Directory:"
+echo "###############################################################################"
 echo ""
 sleep 2
 mkdir -p $WD
+
+# Copy files to Temp-Dir, follow symlinks
 cp -Lrv /opt/proxy/letsencrypt/live /tmp/cert-script/
-echo ""
+echo "###############################################################################"
 echo "# Delete all README Files"
+echo "###############################################################################"
 echo ""
 sleep 1
 find /tmp/cert-script/live -type f -name 'README' -delete
@@ -42,10 +47,11 @@ find /tmp/cert-script/live -type f -name 'README' -delete
 ls $WD | cut -c 5- > /tmp/cert-script/dir_num
 
 # Start variable
-i=1
-e=$(cat $DIR_NUM | wc -l)
+i=1 #incremental Stepup by one
+e=$(cat $DIR_NUM | wc -l) #highest folder number
 e=$((e+1))
 
+#Rename Algorythmus
 while [ $i -le $e ]
 do
     if grep -q -x -F "$i" "$DIR_NUM"
@@ -69,14 +75,17 @@ do
 done
 
 # upload to git
+echo "###############################################################################"
 echo "# Copy certificate to upload directory"
+echo "###############################################################################"
 echo ""
 cp -rv /tmp/cert-script/live/* /root/cert
 rm -rv /tmp/cert-script/live
 rm $DIR_NUM
 
-echo ""
+echo "###############################################################################"
 echo "push to Gitlab"
+echo "###############################################################################"
 echo ""
 cd /root/cert
 git pull
