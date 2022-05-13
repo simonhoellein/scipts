@@ -53,6 +53,11 @@ i=1 #incremental Stepup by one
 e=$(cat $DIR_NUM | wc -l) #highest folder number
 e=$((e+1))
 
+echo ""
+echo "###############################################################################"
+echo "# Get Certificates"
+echo "###############################################################################"
+echo ""
 #Rename Algorythmus
 while [ $i -le $e ]
 do
