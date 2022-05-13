@@ -27,6 +27,7 @@ echo "Directory-Numvers: $DIR_NUM"
 echo ""
 sleep 2
 # Copy Certfiles to Work-Directory and rm all README files
+echo ""
 echo "###############################################################################"
 echo "# Copying files to Working Directory:"
 echo "###############################################################################"
@@ -36,6 +37,7 @@ mkdir -p $WD
 
 # Copy files to Temp-Dir, follow symlinks
 cp -Lrv /opt/proxy/letsencrypt/live /tmp/cert-script/
+echo ""
 echo "###############################################################################"
 echo "# Delete all README Files"
 echo "###############################################################################"
@@ -75,6 +77,7 @@ do
 done
 
 # upload to git
+echo ""
 echo "###############################################################################"
 echo "# Copy certificate to upload directory"
 echo "###############################################################################"
@@ -82,7 +85,7 @@ echo ""
 cp -rv /tmp/cert-script/live/* /root/cert
 rm -rv /tmp/cert-script/live
 rm $DIR_NUM
-
+echo ""
 echo "###############################################################################"
 echo "push to Gitlab"
 echo "###############################################################################"
