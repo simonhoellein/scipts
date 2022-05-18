@@ -100,3 +100,6 @@ git pull
 git add *
 git commit -m "certificate update"
 git push
+
+# healcheck ping
+curl -fsS --retry 5 https://hc-ping.com/4f6a585c-fb0a-4a24-893e-504c442209df
