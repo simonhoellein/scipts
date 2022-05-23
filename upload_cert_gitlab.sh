@@ -29,7 +29,7 @@ sleep 2
 # Copy Certfiles to Work-Directory and rm all README files
 echo ""
 echo "###############################################################################"
-echo "# Copying files to Working Directory:"
+echo "# Copying files to Working Directory                                          #"                                        
 echo "###############################################################################"
 echo ""
 sleep 2
@@ -39,7 +39,7 @@ mkdir -p $WD
 cp -Lrv /opt/proxy/letsencrypt/live /tmp/cert-script/
 echo ""
 echo "###############################################################################"
-echo "# Delete all README Files"
+echo "# Delete all README Files                                                     #"
 echo "###############################################################################"
 echo ""
 sleep 1
@@ -55,7 +55,7 @@ e=$((e+1))
 
 echo ""
 echo "###############################################################################"
-echo "# Get Certificates"
+echo "# Get Certificates                                                            #"
 echo "###############################################################################"
 echo ""
 #Rename Algorythmus
@@ -84,7 +84,7 @@ done
 # upload to git
 echo ""
 echo "###############################################################################"
-echo "# Copy certificate to upload directory"
+echo "# Copy certificate to upload directory                                        #"
 echo "###############################################################################"
 echo ""
 cp -rv /tmp/cert-script/live/* /root/cert
@@ -92,7 +92,7 @@ rm -rv /tmp/cert-script/live
 rm $DIR_NUM
 echo ""
 echo "###############################################################################"
-echo "push to Gitlab"
+echo "# push to Gitlab                                                              #"
 echo "###############################################################################"
 echo ""
 cd /root/cert
