@@ -11,6 +11,7 @@ WD=/tmp/cert-script/live
 DIR_NUM=/tmp/cert-script/dir_num
 
 # Intro-Text
+<<<<<<< HEAD
 echo "_________                __  .__  _____.__               __                 "
 echo "\_   ___ \  ____________/  |_|__|/ ____\__| ____ _____ _/  |_  ____   ______"
 echo "/    \  \/_/ __ \_  __ \   __\  \   __\|  |/ ___\\__  \\   __\/ __ \ /  ___/"
@@ -26,10 +27,27 @@ echo "Working Directory: $WD"
 echo "Directory-Numbers: $DIR_NUM"
 echo ""
 sleep 2
+=======
+    echo "_________                __  .__  _____.__               __                 "
+    echo "\_   ___ \  ____________/  |_|__|/ ____\__| ____ _____ _/  |_  ____   ______"
+    echo "/    \  \/_/ __ \_  __ \   __\  \   __\|  |/ ___\\__  \\   __\/ __ \ /  ___/"
+    echo "\     \___\  ___/|  | \/|  | |  ||  |  |  \  \___ / __ \|  | \  ___/ \___ \ "
+    echo " \______  /\___  >__|   |__| |__||__|  |__|\___  >____  /__|  \___  >____  >"
+    echo "        \/     \/                              \/     \/          \/     \/ "
+    echo ""
+    echo "# Script by sh"
+    echo ""
+    echo "# Explenation: This Script is ment to upload Certificates from NGINX Proxy Manager to a Gitlab Repository"
+    echo ""
+    echo "Working Directory: $WD"
+    echo "Directory-Numvers: $DIR_NUM"
+    echo ""
+    sleep 2
+>>>>>>> 0c9ad9aaee8bdf5b1a0f31938e4069879fa5bd59
 # Copy Certfiles to Work-Directory and rm all README files
 echo ""
 echo "###############################################################################"
-echo "# Copying files to Working Directory:"
+echo "# Copying files to Working Directory                                          #"
 echo "###############################################################################"
 echo ""
 sleep 2
@@ -39,7 +57,7 @@ mkdir -p $WD
 cp -Lrv /opt/proxy/letsencrypt/live /tmp/cert-script/
 echo ""
 echo "###############################################################################"
-echo "# Delete all README Files"
+echo "# Delete all README Files                                                     #"
 echo "###############################################################################"
 echo ""
 sleep 1
@@ -55,7 +73,7 @@ e=$((e+1))
 
 echo ""
 echo "###############################################################################"
-echo "# Get Certificates"
+echo "# Get Certificates                                                            #"
 echo "###############################################################################"
 echo ""
 #Rename Algorythmus
@@ -67,7 +85,11 @@ do
         exp_date=$(openssl x509 -in $WD/npm-$i/cert.pem -noout -text | grep "Not After :" | cut -d ":" -f 2- | cut -c 2-)
         echo "# Information about $cn" > $WD/npm-$i/README.md
         echo "--------" >> $WD/npm-$i/README.md
+        echo "Experiation Date: $exp_date" >> $WD/npm-$i/README.md
+        echo "## Other Information: " >> $WD/npm-$i/README.md
+        echo "```" >> $WD/npm-$i/README.md
         openssl x509 -in $WD/npm-$i/cert.pem -noout -text >> $WD/npm-$i/README.md
+        echo "```" >> $WD/npm-$i/README.md
         mv $WD/npm-$i $WD/$cn
         echo "Certificate Nr. $i"
         echo "======"
@@ -84,7 +106,7 @@ done
 # upload to git
 echo ""
 echo "###############################################################################"
-echo "# Copy certificate to upload directory"
+echo "# Copy certificate to upload directory                                        #"
 echo "###############################################################################"
 echo ""
 cp -rv /tmp/cert-script/live/* /root/cert
@@ -92,7 +114,7 @@ rm -rv /tmp/cert-script/live
 rm $DIR_NUM
 echo ""
 echo "###############################################################################"
-echo "push to Gitlab"
+echo "# push to Gitlab                                                              #"
 echo "###############################################################################"
 echo ""
 cd /root/cert
