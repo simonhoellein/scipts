@@ -23,7 +23,7 @@ echo ""
 echo "# Explenation: This Script is ment to upload Certificates from NGINX Proxy Manager to a Gitlab Repository"
 echo ""
 echo "Working Directory: $WD"
-echo "Directory-Numvers: $DIR_NUM"
+echo "Directory-Numbers: $DIR_NUM"
 echo ""
 sleep 2
 # Copy Certfiles to Work-Directory and rm all README files
