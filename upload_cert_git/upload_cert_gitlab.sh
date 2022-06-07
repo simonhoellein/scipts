@@ -10,7 +10,7 @@
 WD=/tmp/cert-script/live
 DIR_NUM=/tmp/cert-script/dir_num
 README=/root/cert/README.md
-$SCRIPT_LOCATION=/root/script/upload_cert_git
+SCRIPT_LOCATION=/root/scripts/upload_cert_git
 
 # Intro-Text
 echo "_________                __  .__  _____.__               __                 "
