@@ -10,6 +10,7 @@
 WD=/tmp/cert-script/live
 DIR_NUM=/tmp/cert-script/dir_num
 README=/root/cert/README.md
+$SCRIPT_LOCATION=/root/script/upload_cert_git
 
 # Intro-Text
 echo "_________                __  .__  _____.__               __                 "
@@ -40,11 +41,21 @@ mkdir -p $WD
 cp -Lrv /opt/proxy/letsencrypt/live /tmp/cert-script/
 echo ""
 echo "###############################################################################"
-echo "# Delete all README Files                                                     #"
+echo "# Delete all README Files in Cert-Directory                                   #"
 echo "###############################################################################"
 echo ""
 sleep 1
 find /tmp/cert-script/live -type f -name 'README' -delete -print
+
+# README-File for Cert-Repo
+echo ""
+echo "###############################################################################"
+echo "# Prepeare README File for Git-Repo                                           #"
+echo "###############################################################################"
+echo ""
+echo "README-File: $README"
+echo "Script-Location: $SCRIPT_LOCATION"
+cat $SCRIPT_LOCATION/helper.preset-readme.md > $README
 
 # Get numberts from npm-folders
 ls $WD | cut -c 5- > /tmp/cert-script/dir_num
@@ -66,6 +77,8 @@ do
     then
         cn=$(openssl x509 -in $WD/npm-$i/cert.pem -noout -text | grep "Subject: CN = " | cut -d "=" -f 2 | cut -c 2-)
         exp_date=$(openssl x509 -in $WD/npm-$i/cert.pem -noout -text | grep "Not After :" | cut -d ":" -f 2- | cut -c 2-)
+        date=$(date)
+        echo "|'$cn'|'$exp_date'|'$date'" >> $README
         echo "# Information about $cn" > $WD/npm-$i/README.md
         echo "--------" >> $WD/npm-$i/README.md
         echo "Experiation Date:" $exp_date >> $WD/npm-$i/README.md
@@ -78,6 +91,7 @@ do
         echo "======"
         echo "CN = $cn"
         echo "Experiation = $exp_date"
+        echo "Updated = $date"
         echo ""
         sleep 1
         i=$((i+1))
@@ -112,10 +126,3 @@ curl -fsS --retry 5 https://hc-ping.com/4f6a585c-fb0a-4a24-893e-504c442209df
 
 # sed -i [line:$l] [input: |'$CN'|'$EXP_DATE'|] /root/cert/README.md
 # l=$((l+1))
-
-# WORKAROUND
-
-cat $SCRIPT_LOCATION/helper.preset-readme.md > $README
-# in die update-schleife
-date
-echo "|'$cn'|'$exp_date'|''" >> $README
