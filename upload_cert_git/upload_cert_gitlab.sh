@@ -77,8 +77,9 @@ do
     then
         cn=$(openssl x509 -in $WD/npm-$i/cert.pem -noout -text | grep "Subject: CN = " | cut -d "=" -f 2 | cut -c 2-)
         exp_date=$(openssl x509 -in $WD/npm-$i/cert.pem -noout -text | grep "Not After :" | cut -d ":" -f 2- | cut -c 2-)
+        val_date=$(openssl x509 -in $WD/npm-$i/cert.pem -text -noout | grep "Not Before:" | cut -d ":" -f 2- | cut -c 2-)
         date=$(date)
-        echo "|``$cn``|``$exp_date``|``$date``|" >> $README
+        echo "|$cn|$exp_date|$val_date|$date|" >> $README
         echo "# Information about $cn" > $WD/npm-$i/README.md
         echo "--------" >> $WD/npm-$i/README.md
         echo "Experiation Date:" $exp_date >> $WD/npm-$i/README.md
@@ -91,6 +92,7 @@ do
         echo "======"
         echo "CN = $cn"
         echo "Experiation = $exp_date"
+        echo "Renewed at  = $val_date"
         echo "Updated = $date"
         echo ""
         sleep 1
