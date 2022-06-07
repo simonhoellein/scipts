@@ -12,5 +12,5 @@
 
 ## Expiration 
 
-|Authorized to|Expiration Date|latest Update|
-|---|---|---|
+|Authorized to|Expiration Date|Valid from|latest Update|
+|---|---|---|---|
