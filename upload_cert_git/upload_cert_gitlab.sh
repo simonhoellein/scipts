@@ -81,7 +81,7 @@ do
         date=$(date)
         echo "|$cn|$exp_date|$val_date|$date|" >> $README
         echo "# Information about $cn" > $WD/npm-$i/README.md
-        echo "--------" >> $WD/npm-$i/README.md
+        echo "" >> $WD/npm-$i/README.md
         echo "Experiation Date:" $exp_date >> $WD/npm-$i/README.md
         echo "## Other Information: " >> $WD/npm-$i/README.md
         echo "" >> $WD/npm-$i/README.md
