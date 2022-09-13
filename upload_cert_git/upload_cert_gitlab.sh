@@ -81,12 +81,13 @@ do
         date=$(date)
         echo "|$cn|$exp_date|$val_date|$date|" >> $README
         echo "# Information about $cn" > $WD/npm-$i/README.md
-        echo "--------" >> $WD/npm-$i/README.md
+        echo "" >> $WD/npm-$i/README.md
         echo "Experiation Date:" $exp_date >> $WD/npm-$i/README.md
         echo "## Other Information: " >> $WD/npm-$i/README.md
-        echo "````" >> $WD/npm-$i/README.md
+        echo "" >> $WD/npm-$i/README.md
+        echo "~~~" >> $WD/npm-$i/README.md
         openssl x509 -in $WD/npm-$i/cert.pem -noout -text >> $WD/npm-$i/README.md
-        echo "````" >> $WD/npm-$i/README.md
+        echo "~~~" >> $WD/npm-$i/README.md
         mv $WD/npm-$i $WD/$cn
         echo "Certificate Nr. $i"
         echo "======"
