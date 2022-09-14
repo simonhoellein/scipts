@@ -152,7 +152,7 @@ else [ "$PING_T" < "50" ]
 fi
 echo ""
 
-echo -e "${Purple}[CHCEK]${ENDCOLOR} Internet Speed"
+echo -e "${Purple}[CHECK]${ENDCOLOR} Internet Speed"
 apt install speedtest-cli -y
 SPEED_DOWN=$(speedtest --no-upload | grep "Download:" | cut -d ":" -f 2 | sed -e 's/^[[:space:]]*//')
 SPEED_UP=$(speedtest --no-download | grep "Upload:" | cut -d ":" -f 2 | sed -e 's/^[[:space:]]*//') 
