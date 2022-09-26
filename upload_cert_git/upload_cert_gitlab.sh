@@ -6,6 +6,9 @@
 
 # Explenation: This Script is ment to upload Certificates from NGINX Proxy Manager to a Gitlab Repository
 
+# Heathbeat
+curl -G https://betteruptime.com/api/v1/heartbeat/4CFRxacCMBAPwySbatBjGxBo
+
 # Global Vars
 WD=/tmp/cert-script/live
 DIR_NUM=/tmp/cert-script/dir_num
