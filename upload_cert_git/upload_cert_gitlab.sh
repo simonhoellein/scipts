@@ -65,7 +65,8 @@ ls $WD | cut -c 5- > /tmp/cert-script/dir_num
 
 # Start variable
 i=1 #incremental Stepup by one
-e=$(cat $DIR_NUM | wc -l) #highest folder number
+#e=$(cat $DIR_NUM | wc -l) #how many lines has the dir_num file
+e=$(cat $DIR_NUM | sort -bnr | grep -m1 "") # whats the highest number in dir_num file
 e=$((e+1))
 
 echo ""
