@@ -149,7 +149,31 @@ call_utility_installation () {
 }
 
 ssh_key () {
-    
+    ssh_dir_user="/home/$default_user/.ssh/"
+    ssh_dir_root="/root/.ssh/"
+    echo -e "$On_Green[  OK  ]$Color_Off Cloning SSH-Keys from GitLab"
+    echo ""
+    git clone https://gitlab.shoellein.de/shoellein/ssh.git ~/ssh/
+
+    echo "Copy shoellein_priv.key"
+    if [ -d "$ssh_dir_user" ]; then
+        echo -e "$On_Green[  OK  ]$Color_Off $ssh_dir_user already exists"
+    else
+        echo -e "$On_Green[  OK  ]$Color_Off creating $ssh_dir_user"
+        mkdir $ssh_dir_user
+    fi
+    touch ~/.ssh/authorized_keys
+    cat ssh/* >> ~/.ssh/authorized_keys
+
+    echo "Copy backup_pull.key"
+    if [ -d "$ssh_dir_root" ]; then
+        echo -e "$On_Green[  OK  ]$Color_Off $ssh_dir_root already exists"
+    else
+        echo -e "$On_Green[  OK  ]$Color_Off creating $ssh_dir_root"
+        sudo -u root mkdir $ssh_dir_root
+    fi
+    sudo -u root touch /root/.ssh/authorized_keys
+    sudo -u root cat ssh/backup_pull >> /root/.ssh/authorized_keys
 }
 
 #########################
@@ -176,6 +200,17 @@ read -p "Continue? [y/N]" -n 1 -r
         echo ""
         echo ""
         call_utility_installation
+    else
+        exit
+    fi
+
+# questioning ssh-key installation
+read -p "Install SSH-Keys? [y/N]" -n 1 -r
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+        echo ""
+        echo ""
+        ssh_key
     else
         exit
     fi
