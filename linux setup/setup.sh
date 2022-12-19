@@ -176,6 +176,17 @@ ssh_key () {
     sudo -u root cat ssh/backup_pull >> /root/.ssh/authorized_keys
 }
 
+dotfiles () {
+    git clone https://gitlab.shoellein.de/shoellein/dotfiles.git
+    echo "copy <.screenrc>"
+    cp -v .screenrc ~/.screenrc
+    sudo cp -v .screenrc /root/.screenrc
+
+    echo "copy <.bashrc>"
+    cp -v .bashrc-user ~/.bashrc
+    sudo cp -v .bashrc-root /root/.bashrc
+}
+
 #########################
 # MAIN - Top-level Code #
 #########################
@@ -214,3 +225,14 @@ read -p "Install SSH-Keys? [y/N]" -n 1 -r
     else
         exit
     fi
+
+# customisation
+echo "installing dotfiles"
+dotfiles
+
+# restart networking
+echo "restart networking service"
+echo ""
+echo "New Config:"
+cat /etc/network/interfaces.d/*
+service networking restart
