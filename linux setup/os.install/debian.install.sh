@@ -22,9 +22,30 @@ software_install (){
 networking () {
 	while true
 	do
-		read -p "address: " address
-		read -p "netmask: " netmask
-  		read -p "gateway: " gateway
+		while true
+		do
+			read -p "address: " address
+			read -p "netmask: " netmask
+			read -p "gateway: " gateway
+			echo ""
+			echo "Please Confirm the following network settings"
+			echo "==============="
+			echo "Address: $address"
+			echo "Netmask: $netmask"
+			echo "Gateway: $gateway"
+			echo ""
+			read -p "Continue? [y/N]" -n 1 -r
+			if [[ $REPLY =~ ^[Yy]$ ]]
+			then
+				echo "Checking IP-Address whith Ping..."
+				echo ""
+				break
+			else
+				echo "Canceld: Enter network settings again"
+				echo ""
+				continue
+			fi
+		done
 
 		ping=$(ping -c 4 $address | grep "packet loss" | cut -d "," -f 4 | cut -b 2-)
 		if [[ $ping == *"100% packet loss"* ]]
@@ -41,10 +62,12 @@ networking () {
 			echo "netmask $netmask" >> /etc/network/interfaces.d/"$interface"
 			echo "gateway $gateway" >> /etc/network/interfaces.d/"$interface"
 
-			head -n -3 /etc/network/interfaces > /etc/network/interfaces
-  			service networking restart
-  			systemctl status networking
-			
+			cat helper.file/network.interfaces > /etc/network/interface
+
+			echo "allow-hotplug $interface" >> /etc/network/interface
+			echo "iface $interface inet static" >> /etc/network/interface
+
+  			echo "Restart networkig at the end of the script..."	
 			break
 		else
 			echo -e "$On_Red[  FAILED  ]$Color_Off IP is already in use!"
@@ -55,7 +78,16 @@ networking () {
 
 sudo_config () {
   	echo -e "$On_Green[  OK  ]$Color_Off Adding user $default_user to sudoers-group"
-  	usermod -a -G sudo $default_user
+	echo ""
+  	usermod -aG sudo $default_user
+	sudo_group_check=$(cat /etc/gropu | grep "sudo")
+	if [[ $sudo_group_check == *"shoellein"* ]]
+	then
+		echo -e "$On_Green[  OK  ]$Color_Off shoellein added to sudo-group"
+	else
+		echo -e "$On_Red[  FAILED  ]$Color_Off user <shoellein> could not be found in group <sudo>"
+		echo ""
+	fi
 }
 
 ########
@@ -90,6 +122,7 @@ fi
 # adding user to sudoers group
 echo ""
 sudo_config
+echo "need to logout to apply sudo-rights..."
 echo ""
 
 neofetch
