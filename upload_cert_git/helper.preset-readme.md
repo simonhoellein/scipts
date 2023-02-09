@@ -23,7 +23,7 @@ cp -rv /root/cert/*.net.shoellein.de/* /etc/letsencrypt/live/net.shoellein.de/
 ```
 * crontab:
 ```sh
-0 0 * * * /root/cert-update.sh > /dev/null 2>&1
+0 5 * * * /root/cert-update.sh > /dev/null 2>&1
 ```
 
 ### Clone with git and ssh-key
