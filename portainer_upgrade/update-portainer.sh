@@ -2,6 +2,34 @@
 
 # script by sh
 
+upgrade_portainer () {
+    echo "stopping container: "
+    docker stop portainer
+    echo ""
+    echo "removing deployment:"
+    docker rm portainer
+    echo ""
+    echo "pulling immage portainer/portainer-ee:latest"
+    docker pull portainer/portainer-ee:latest
+    echo ""
+    echo "starting portainer-ee"
+    docker run -d -p 8000:8000 -p 9443:9443 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ee:latest
+}
+
+upgrade_portainer_agent () {
+    echo "stopping container:"
+    docker stop portainer_agent
+    echo ""
+    echo "removing deployment:"
+    docker rm portainer_agent
+    echo ""
+    echo "pulling image portainer/agent:latest"
+    docker pull portainer/agent:latest
+    echo ""
+    echo "starting portainer-agent"
+    docker run -d -p 9001:9001 --name portainer_agent --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/docker/volumes:/var/lib/docker/volumes portainer/agent:latest
+}
+
 echo "# script by sh"
 echo "#"
 sleep 1
@@ -19,19 +47,5 @@ if [[ $REPLY =~ ^[1]$ ]]
     else
         upgrade_portainer_agent
     fi
-
-upgrade_portainer () {
-    docker stop portainer
-    docker rm portainer
-    docker pull portainer/portainer-ee:latest
-    docker run -d -p 8000:8000 -p 9443:9443 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ee:latest
-}
-
-upgrade_portainer_agent () {
-    docker stop portainer_agent
-    docker rm portainer_agent
-    docker pull portainer/agent:latest
-    docker run -d -p 9001:9001 --name portainer_agent --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/docker/volumes:/var/lib/docker/volumes portainer/agent:latest
-}
 
 echo "# Portainer is up-to-date!"
