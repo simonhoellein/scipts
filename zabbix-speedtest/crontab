@@ -1,0 +1,1 @@
+5,25,45 * * * * speedtest --secure  --json > /opt/speedtest-result.json && curl -G https://uptime.betterstack.com/api/v1/heartbeat/S81ni8s6bKizJVmJvRapP5vK
